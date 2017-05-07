@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML字符串</title>
+        <meta http-equivmetahttp-equiv="content-type" content="text/html;charset=utf-8">
+        <meta name="viewport" content="width=320, user-scalable=no">
+        <style type="text/css">
+            body {
+                font: 62.5% arial, sans-serif;
+                background: #ccc;
+            }
+
+            div {
+                align-content: center;
+                text-align: center;
+                vertical-align: middle;
+                margin-top: 200px;
+                /*background: red;*/
+            }
+
+            button {
+                padding: 10px;
+                margin-top: 20px;
+                margin-bottom: 10px;
+                color: black;
+                background: white;
+                text-align:center;
+            }
+        </style>
+    </head>
+
+    <body>
+            <div>
+                <button  type="button" value="blue" onclick="clickButtonAction(this)">Button  A</button><br/>
+
+                <button  type="button" value="red" onclick="clickButtonAction(this)">Button  B</button>
+            </div>
+
+
+        <script language="JavaScript">
+            function clickButtonAction(e) {
+//              alert('你好，我是一个弹框！'+e.value)
+                window.postMessage(JSON.stringify({type:'Selete',value:e.value}))
+            }
+        </script>
+    </body>
+
+</html>
