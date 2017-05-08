@@ -9,39 +9,60 @@ import {
   View,
   WebView,
   Alert,
+  Button,
+
 } from'react-native';
 const html = require('../src/react.html');
 
 
 export default class MainPage extends Component {
 
-  onMessage(event){
-    console.log('onMessage->event.nativeEvent.data:');
-    console.log(event.nativeEvent.data);
-    Alert.alert(
-      '警告提示',
-      event.nativeEvent.data,
-      [
-        {text: 'OK', onPress: () => console.log('OK Pressed!')},
-      ]
-    );
-  }
+    constructor(props) {
+        super(props);
+    }
+    webview: null;
 
-  render() {
-    return (
-    <View style={{flex:1}}>
-      <WebView style={styles.webview_style}
-               source={html}
-               startInLoadingState={true}
-               domStorageEnabled={true}
-               javaScriptEnabled={true}
-               onMessage={this.onMessage}
+    handleMessage(event){
+      console.log('onMessage->event.nativeEvent.data:');
+      console.log(event.nativeEvent.data);
+      Alert.alert(
+        '警告提示',
+        event.nativeEvent.data,
+        [
+          {
+              text: 'OK',
+              onPress: () => console.log("Press OK!"),
+          },
+        ]
+      );
+    }
 
-      >
-      </WebView>
-    </View>
-    );
-  }
+    postMessage = () => {
+        if (this.webview) {
+            // alert(this.webview);
+            this.webview.postMessage('"Hello" from React Native!');
+        }
+    }
+
+    render() {
+        return (
+            <View style={{flex:1}}>
+                <WebView
+                    style={styles.webview_style}
+                    ref={webview => { this.webview = webview; }}
+                    source={html}
+                    startInLoadingState={true}
+                    domStorageEnabled={true}
+                    javaScriptEnabled={true}
+                    onMessage={this.handleMessage}
+                >
+                </WebView>
+                <View >
+                    <Button title="Send Message to Web View"  onPress={this.postMessage} />
+                </View>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -49,3 +70,4 @@ const styles = StyleSheet.create({
     backgroundColor:'#00ff00',
   }
 });
+
