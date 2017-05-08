@@ -72,20 +72,6 @@ export default class MainPage extends Component {
                     onMessage={this.webListener}
                 >
                 </WebView>
-                <View style={styles.space_style}></View>
-                <View style={styles.rn_side_style}>
-                    <Text style={styles.text_style}>React Native Side: </Text>
-                    <TextInput style={styles.input_style}
-                               placeholder=' 请输入'
-                               returnKeyType={'done'}
-                               underlineColorAndroid='transparent'
-                               value={this.state.inputValue}
-                               onChangeText={this.handleTextChange.bind(this)}
-                    />
-                    <Button title="Send Message to Web View"  onPress={this.rnSender} />
-
-                    <Button title="Nav Web View To Another Page"  onPress={this.navToAnotherUrl.bind(this)} />
-                </View>
             </View>
         );
     }
