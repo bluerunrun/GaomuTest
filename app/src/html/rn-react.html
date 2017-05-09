@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>菜鸟教程 React 实例</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+
+    <!--<script src = "./lib/babel.min.js" ></script>-->
+    <!--<script src = "./lib/react-dom.min.js" ></script>-->
+    <!--<script src = "./lib/babel.min.js" ></script>-->
+
+    <style type="text/css">
+        status {
+            font-size: 12px;
+            text-align: center;
+            background-color: red;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            line-height: 25px;
+            margin: 5px 0;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 20px 0;
+        }
+    </style>
+
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    var HelloMessage = React.createClass({
+
+        getInitialState: function() {
+            return {
+                value: 'Default text!',
+                msg: ""
+
+            };
+        },
+
+        //  发送数据到 RN
+        postMessageToRN: function(pCmd, pData, event) {
+            var msg =  JSON.stringify({command:pCmd,data:pData});
+//            alert('你好，我是一个弹框！'+msg);
+
+            window.postMessage(msg);
+        },
+
+        rnListener: function() {
+            alert('你好，我是一个弹框！'+"rnListener");
+            document.getElementById("status").innerHTML = e.data;
+        },
+
+        // 点击事件
+        handleClick: function(pCmd, event) {
+            var pData = null;
+            switch (pCmd) {
+                case 'set': {
+                    var sValue = document.getElementById("input").value;
+                    pData = {value:sValue};
+                    break;
+                }
+                case 'getA': {
+                    break;
+                }
+                default :{
+
+                    break;
+                }
+            }
+
+            this.postMessageToRN(pCmd,pData,event);
+        },
+
+        alertMessage: function () {
+            alert("ttttttttt");
+        },
+
+        render: function() {
+            var value = this.state.value;
+            return <div>
+                <h1>Web Side:</h1>
+                <p id="status">{value}</p>
+                <input id="input" type="text" placeholder="Some..." />
+                <button id="set"  onClick={this.handleClick.bind(this, 'set')}>Send To RN</button>
+                <button id="getA"  onClick={this.handleClick.bind(this, 'getA')}>Get From RN (Auto)</button>
+                <button id="getM"  onClick={this.handleClick.bind(this, 'getM')}>Get From RN (Manual)</button>
+                <button id="nav"  onClick={this.handleClick.bind(this, 'nav')}>Nav To Another Page</button>
+            </div>;
+        }
+    });
+
+    var HelloRendered =  ReactDOM.render(
+            <HelloMessage ref="subcomponents" id="blueTest"/>,
+            document.getElementById('example')
+    );
+
+</script>
+<script>
+    window.document.addEventListener('message',function(e){
+        document.getElementById("status").innerHTML = typeof HelloRenderedTest;
+//        HelloMessage.rnListener();
+        this.refs.subcomponents.alertMessage();
+        HelloRendered.alertMessage();
+        HelloMessage.alertMessage();
+    });
+</script>
+</body>
+</html>

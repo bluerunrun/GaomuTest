@@ -14,7 +14,7 @@ import {
 
 } from'react-native';
 import Dimensions from 'Dimensions';
-const defaultUrl = require('../src/rn-react.html');
+const defaultUrl = require('../src/html/rn-react.html');
 
 
 export default class MainPage extends Component {
@@ -24,25 +24,30 @@ export default class MainPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputValue: "",
-            html: defaultUrl
+            html: defaultUrl,
+            dataFormWeb: null,
+
         };
     }
 
-    handleTextChange = inputValue => {
-        this.setState({ inputValue });
-    };
+    shouldComponentUpdate(nextProps, nextState){
+        // if(nextProps.isLoggedIn != this.props.isLoggedIn && nextProps.isLoggedIn === true){
+        //     //will redirect
+        //     this.refs.modal.close();
+        //     this.toMain();
+        //     return false;
+        // }
+        // if (nextState.dataFormWeb !== null){
+        //     this.showData("test","update");
+        //     return false;
+        // }
+        return true;
+    }
 
-    navToAnotherUrl =  html => {
-        this.setState({html: require('../src/react.html')});
-    };
-
-    webListener(event){
-        console.log('onMessage->event.nativeEvent.data:');
-        console.log(event.nativeEvent.data);
+    showData(title,test){
         Alert.alert(
-            'Get Data From Web',
-            event.nativeEvent.data,
+            title,
+            test,
             [
                 {
                     text: 'OK',
@@ -52,11 +57,36 @@ export default class MainPage extends Component {
         );
     }
 
-    rnSender = () => {
+    postMessageToWeb = (pCmd, pData) => {
         if (this.webview) {
-            var msg = this.state.inputValue;
-            this.webview.postMessage(msg===""?"text":msg);
+            var msg =  JSON.stringify({command:pCmd,data:pData});
+            this.webview.postMessage(msg);
         }
+    }
+
+    webListener = (event) => {
+        var strFromWeb = event.nativeEvent.data;
+        var result = JSON.parse(strFromWeb);
+
+        // this.setState({'dataFormWeb': result});
+
+        var pCmd = result.command;
+        switch (pCmd){
+            case 'set':{
+                this.showData("Get Data From Web",result.data.value);
+                break;
+            }
+            case 'getA':{
+                var data = {value:"RN Data"};
+                this.postMessageToWeb(pCmd,data);
+                break;
+            }
+            default : {
+                break;
+            }
+
+        }
+
     }
 
     render() {
@@ -69,7 +99,7 @@ export default class MainPage extends Component {
                     startInLoadingState={true}
                     domStorageEnabled={true}
                     javaScriptEnabled={true}
-                    onMessage={this.webListener}
+                    onMessage={this.webListener.bind(this)}
                 >
                 </WebView>
             </View>
