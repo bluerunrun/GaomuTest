@@ -6,68 +6,12 @@
     <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
     <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
     <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script>
 
-    <!--<script src = "./lib/babel.min.js" ></script>-->
-    <!--<script src = "./lib/react-dom.min.js" ></script>-->
-    <!--<script src = "./lib/babel.min.js" ></script>-->
-
-    <style type="text/css">
-        body {
-            font: 62.5% arial, sans-serif;
-            background: #ccc;
-        }
-
-        div {
-            align-content: center;
-            text-align: center;
-            vertical-align: middle;
-            margin-top: 200px;
-            /*background: red;*/
-        }
-
-        button {
-            padding: 10px;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            color: black;
-            background: white;
-            text-align:center;
-        }
-    </style>
 
 </head>
 <body>
-<div id="example"></div>
-<script type="text/babel">
-    var HelloMessage = React.createClass({
-        getInitialState: function() {
-            return {value: 'Hello Runoob!'};
-        },
-        handleChange: function(e) {
-            if (this.state.value !== "菜鸟教程") {
-                this.setState({value: '菜鸟教程'});
-            }else {
-                this.setState({value: 'Hello Runoob!'});
-            }
-//            alert('你好，我是一个弹框！'+this.state.value);
-            window.postMessage(JSON.stringify({type:'Selete',value:this.state.value}));
-        },
-        render: function() {
-            var value = this.state.value;
-            return <div>
-                <button onClick={this.handleChange.bind(this)} >点我</button>
-                <h4 id="text">{value}</h4>
-            </div>;
-        }
-    });
-    window.document.addEventListener('message',function(e){
-        document.getElementById("text").innerHTML = e.data;
-    });
-
-    ReactDOM.render(
-            <HelloMessage />,
-            document.getElementById('example')
-    );
-</script>
+<div id="app"> </div>
+<script src="../../build/bundle.js"></script>
 </body>
 </html>
