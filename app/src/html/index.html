@@ -1,48 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>HTML字符串</title>
-        <meta http-equivmetahttp-equiv="content-type" content="text/html;charset=utf-8">
-        <meta name="viewport" content="width=320, user-scalable=no">
-        <style type="text/css">
-            body {
-                font: 62.5% arial, sans-serif;
-                background: #ccc;
-            }
-
-            div {
-                align-content: center;
-                text-align: center;
-                vertical-align: middle;
-                margin-top: 200px;
-                /*background: red;*/
-            }
-
-            button {
-                padding: 10px;
-                margin-top: 20px;
-                margin-bottom: 10px;
-                color: black;
-                background: white;
-                text-align:center;
-            }
-        </style>
-    </head>
-
-    <body>
-            <div>
-                <button  type="button" value="blue" onclick="clickButtonAction(this)">Button  A</button><br/>
-
-                <button  type="button" value="red" onclick="clickButtonAction(this)">Button  B</button>
-            </div>
+<head>
+    <meta charset="UTF-8" />
+    <title>菜鸟教程 React 实例</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script>
 
 
-        <script language="JavaScript">
-            function clickButtonAction(e) {
-//              alert('你好，我是一个弹框！'+e.value)
-                window.postMessage(JSON.stringify({type:'Selete',value:e.value}))
-            }
-        </script>
-    </body>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    var MyComponent = React.createClass({
 
+        getInitialState: function() {
+
+            return {
+            };
+        },
+
+        handleClick: function() {
+            this.refs.myTextInput.focus();
+        },
+
+        render: function() {
+            return (
+                    <div>
+                        <input type="text" ref="myTextInput" />
+                        <input type="button" value="Focus the text input" onClick={this.handleClick} />
+                    </div>
+            );
+        }
+    });
+
+    ReactDOM.render(
+            <MyComponent />,
+        document.getElementById('example')
+    );
+
+
+</script>
+</body>
 </html>

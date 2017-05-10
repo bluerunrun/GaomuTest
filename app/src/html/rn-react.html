@@ -7,9 +7,9 @@
     <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
     <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
 
-    <!--<script src = "./lib/babel.min.js" ></script>-->
-    <!--<script src = "./lib/react-dom.min.js" ></script>-->
-    <!--<script src = "./lib/babel.min.js" ></script>-->
+    <!--<script src = "../lib/react.min.js" ></script>-->
+    <!--<script src = "../lib/react-dom.min.js" ></script>-->
+    <!--<script src = "../lib/babel.min.js" ></script>-->
 
     <style type="text/css">
         status {
@@ -40,24 +40,60 @@
     var HelloMessage = React.createClass({
 
         getInitialState: function() {
-            return {
-                value: 'Default text!',
-                msg: ""
 
+            return {
+                value: 'Here show the communicating data！',
             };
         },
 
-        //  发送数据到 RN
-        postMessageToRN: function(pCmd, pData, event) {
-            var msg =  JSON.stringify({command:pCmd,data:pData});
-//            alert('你好，我是一个弹框！'+msg);
-
-            window.postMessage(msg);
+        componentDidMount: function () {
+            var listener = this.rnListener;
+            window.document.addEventListener('message',function(e){
+//                document.getElementById("status") = "Get from RN: " + e.data;
+                listener(e.data);
+            });
         },
 
-        rnListener: function() {
-            alert('你好，我是一个弹框！'+"rnListener");
-            document.getElementById("status").innerHTML = e.data;
+        componentWillUnmount: function() {
+            window.document.removeEventListener('message');
+        },
+
+        statics: {
+            someMethod: function() {
+                document.getElementById("status").innerHTML = "someMethod";
+            }
+        },
+
+        // 处理从 RN 传过来的数据
+        rnListener: function(msg) {
+            var result = JSON.parse(msg);
+//            document.getElementById("status").innerHTML = "rnListener: " + msg;
+
+            var pCmd = result.command;
+            switch (pCmd){
+                case 'get':{
+                    document.getElementById("status").innerHTML = "Get from RN: " + JSON.stringify(result.data);
+                    break;
+                }
+                case 'nav':{
+                    // web 切换 page
+
+                    break;
+                }
+                default : {
+                    break;
+                }
+
+            }
+
+        },
+
+        //  发送数据到 RN
+        postMessageToRN: function(pCmd, pData) {
+            var msg =  JSON.stringify({command:pCmd,data:pData});
+//            alert('你好，我是一个弹框！'+msg);
+            document.getElementById("status").innerHTML = "Send to RN: " + msg;
+            window.postMessage(msg);
         },
 
         // 点击事件
@@ -69,7 +105,10 @@
                     pData = {value:sValue};
                     break;
                 }
-                case 'getA': {
+                case 'get': {
+                    break;
+                }
+                case 'nav': {
                     break;
                 }
                 default :{
@@ -77,42 +116,27 @@
                     break;
                 }
             }
-
-            this.postMessageToRN(pCmd,pData,event);
-        },
-
-        alertMessage: function () {
-            alert("ttttttttt");
+            this.postMessageToRN(pCmd,pData);
         },
 
         render: function() {
             var value = this.state.value;
             return <div>
                 <h1>Web Side:</h1>
-                <p id="status">{value}</p>
-                <input id="input" type="text" placeholder="Some..." />
+                <p id="status" >{value}</p>
+                <input id="input" type="text" placeholder="Some..." ref="theInput"/>
                 <button id="set"  onClick={this.handleClick.bind(this, 'set')}>Send To RN</button>
-                <button id="getA"  onClick={this.handleClick.bind(this, 'getA')}>Get From RN (Auto)</button>
-                <button id="getM"  onClick={this.handleClick.bind(this, 'getM')}>Get From RN (Manual)</button>
+                <button id="get"  onClick={this.handleClick.bind(this, 'get')}>Get From RN</button>
                 <button id="nav"  onClick={this.handleClick.bind(this, 'nav')}>Nav To Another Page</button>
             </div>;
         }
     });
 
     var HelloRendered =  ReactDOM.render(
-            <HelloMessage ref="subcomponents" id="blueTest"/>,
+            <HelloMessage />,
             document.getElementById('example')
     );
 
-</script>
-<script>
-    window.document.addEventListener('message',function(e){
-        document.getElementById("status").innerHTML = typeof HelloRenderedTest;
-//        HelloMessage.rnListener();
-        this.refs.subcomponents.alertMessage();
-        HelloRendered.alertMessage();
-        HelloMessage.alertMessage();
-    });
 </script>
 </body>
 </html>

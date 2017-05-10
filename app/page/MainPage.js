@@ -14,8 +14,8 @@ import {
 
 } from'react-native';
 import Dimensions from 'Dimensions';
-const defaultUrl = require('../src/html/rn-react.html');
-
+const defaultSrc = require('../src/html/rn-react.html');
+const nextSrc = require('../src/html/react.html');
 
 export default class MainPage extends Component {
 
@@ -24,23 +24,14 @@ export default class MainPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            html: defaultUrl,
-            dataFormWeb: null,
+            src: defaultSrc,
+            srcType:"html",
+            anser: "A",
 
         };
     }
 
     shouldComponentUpdate(nextProps, nextState){
-        // if(nextProps.isLoggedIn != this.props.isLoggedIn && nextProps.isLoggedIn === true){
-        //     //will redirect
-        //     this.refs.modal.close();
-        //     this.toMain();
-        //     return false;
-        // }
-        // if (nextState.dataFormWeb !== null){
-        //     this.showData("test","update");
-        //     return false;
-        // }
         return true;
     }
 
@@ -64,6 +55,12 @@ export default class MainPage extends Component {
         }
     }
 
+
+    navWebToNewPage(pCmd,currScr,nextSrc) {
+        var  data = {currScr:currScr,nextSrc:nextSrc};
+        this.postMessageToWeb(pCmd,data);
+    }
+
     webListener = (event) => {
         var strFromWeb = event.nativeEvent.data;
         var result = JSON.parse(strFromWeb);
@@ -76,9 +73,13 @@ export default class MainPage extends Component {
                 this.showData("Get Data From Web",result.data.value);
                 break;
             }
-            case 'getA':{
-                var data = {value:"RN Data"};
+            case 'get':{
+                var data = {value:this.state.anser};
                 this.postMessageToWeb(pCmd,data);
+                break;
+            }
+            case 'nav':{
+                this.navWebToNewPage(pCmd,defaultSrc,nextSrc);
                 break;
             }
             default : {
@@ -90,12 +91,19 @@ export default class MainPage extends Component {
     }
 
     render() {
+        var src ;
+        if (this.state.srcType == "html") {
+            src = this.state.src;
+        }else {
+            src = {uri:this.state.src};
+        }
+
         return (
             <View style={{flex:1}}>
                 <WebView
                     style={styles.web_side_style}
                     ref={webview => { this.webview = webview; }}
-                    source={this.state.html}
+                    source={src}
                     startInLoadingState={true}
                     domStorageEnabled={true}
                     javaScriptEnabled={true}
