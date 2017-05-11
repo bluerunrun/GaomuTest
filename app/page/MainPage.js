@@ -14,8 +14,7 @@ import {
 
 } from'react-native';
 import Dimensions from 'Dimensions';
-// const defaultSrc = require('../src/index.html');
-const defaultSrc = require('../src/react.html');
+const defaultSrc = require('../src/index.html');
 const nextSrc = require('../src/react.html');
 
 export default class MainPage extends Component {
