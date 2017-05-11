@@ -1,6 +1,4 @@
-// modules/App.js
 import React from 'react'
-import { Link } from 'react-router'
 import '../css/App.css'
 
 
@@ -24,6 +22,9 @@ export default React.createClass({
     //     window.document.removeEventListener('message');
     // },
 
+    contextTypes: {
+        router: React.PropTypes.object
+    },
 
     // 处理从 RN 传过来的数据
     rnListener: function(msg) {
@@ -78,24 +79,22 @@ export default React.createClass({
         this.postMessageToRN(pCmd,pData);
     },
 
+    navToAnotherPage(event) {
+        const path = `/secondPage`;
+        this.context.router.push(path);
+    },
 
     render() {
         var value = this.state.value;
         return (
             <div>
 
-                <h1>Web Side:</h1>
-                <p id="status" className="status" >{value}</p>
-                <input className="input" type="text" placeholder="Some..." ref="theInput"/>
-                <button className="button"  onClick={this.handleClick.bind(this, 'set')}>Send To RN</button>
-                <button className="button"  onClick={this.handleClick.bind(this, 'set')}>Get From RN</button>
-                <button className="button"  onClick={this.handleClick.bind(this, 'set')}>Nav To Another Page</button>
-
-                <h1>React Router Tutorial</h1>
-                <ul role="nav">
-                    <li><Link to="/about">About</Link></li>
-                    <li><Link to="/tags">Tags</Link></li>
-                </ul>
+              <h1>First Page:</h1>
+              <p id="status" className="status" >{value}</p>
+              <input id="input" className="input" type="text" placeholder="Some..." ref="theInput"/>
+              <button className="button"  onClick={this.handleClick.bind(this, 'set')}>Send To RN</button>
+              <button className="button"  onClick={this.handleClick.bind(this, 'get')}>Get From RN</button>
+              <button className="button"  onClick={this.navToAnotherPage.bind(this)}>Nav To Another Page</button>
 
             </div>
         )
