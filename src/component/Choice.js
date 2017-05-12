@@ -27,10 +27,6 @@ export default React.createClass({
     //     window.document.removeEventListener('message');
     // },
 
-    contextTypes: {
-        router: React.PropTypes.object
-    },
-
     // 处理从 RN 传过来的数据
     rnListener: function(msg) {
         var result = JSON.parse(msg);
@@ -81,6 +77,11 @@ export default React.createClass({
             }
         }
         this.postMessageToRN(pCmd,pData);
+    },
+
+    // 路由設定
+    contextTypes: {
+        router: React.PropTypes.object
     },
 
     // 切換到另一個頁面

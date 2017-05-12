@@ -13,7 +13,7 @@ export default React.createClass({
         return (
             <div>
                 <h1>Fourth Page:</h1>
-                <Choice pageName="page04"/>
+                <Question pageName="page04"/>
             </div>
         )
     }
