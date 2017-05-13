@@ -1,0 +1,25 @@
+@charset "utf-8";
+.qseq{}/*这个没有找到*/
+/*公式*/
+.MathJye { border: 0 none; direction: ltr; line-height: normal; display: inline-block; float: none; font-family: 'Times New Roman','宋体'; font-size: 15px; font-style: normal; font-weight: normal; letter-spacing: 1px; line-height: normal; margin: 0; padding: 0; text-align: ; white-space: nowrap; word-spacing: normal; word-wrap: normal; -webkit-text-size-adjust: none; }
+.MathJye div, .MathJye span { border: 0 none; margin: 0; padding: 0; line-height: normal; text-align: left; height: auto; _height: auto; white-space: normal; outline: none;}
+.MathJye div[hassize="7"]>div {width: 5px !important;background-position: -1px top !important;}  /*处理移动端根号左边出现边框*/
+.MathJye table { border-collapse: collapse; margin: 0; padding: 0; text-align: center; vertical-align: middle; line-height: normal; font-size: inherit; *font-size: 100%; _font-size: 100%; font-style: normal; font-weight: normal; border: 0; float: none; display: inline-block; *display: inline; zoom: 0; }
+.MathJye table td { padding: 0; font-size: inherit; line-height: normal; white-space: nowrap; border: 0 none; width: auto; _height: auto; }
+.MathJye_mi { font-style: italic; }
+
+table.edittable { border-collapse: collapse; text-align: center; margin: 2px; }
+table.edittable th, table.edittable td { line-height: 30px; padding: 5px; white-space: normal; word-break: break-all; border: 1px solid #000; vertical-align: middle; }
+
+.fliph{}/*???*/
+.flipv{}/*???*/
+
+div.quizPutTag { display: inline; padding: 3px 10px 1px 10px; margin: 0 3px; font-size: 14px; min-width: 30px; min-height: 16px; line-height: 18px; height: auto; border-bottom: 1px solid #0033FF; text-decoration: none; zoom: 1; background: #fff; color: #127176; word-break: break-all; }
+div.quizPutTag:hover { color: #f60; }
+
+.sanwser { padding: 4px 10px; margin: 0px; border: 1px solid #ADCD3C; background-color: #F2FDDB; color: #000; display: none; }
+
+.composition{}/*???*/
+
+/*下面是patch内容*/
+/*div[muststretch="v"]{height:calc(14px - 7px) !important}*/

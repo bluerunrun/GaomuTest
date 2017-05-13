@@ -1,0 +1,63 @@
+body {
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	user-select:none;
+}
+
+.Qst {
+	padding: 5px 0 30px;
+}
+
+.Qst img {
+	max-width: 90%;
+}
+
+#qtn {
+	padding: 10px 15px 5px;
+	display: block;
+	margin-bottom: 18px;
+	font-size: 17px;
+	color: #333;
+	line-height: 1.8;
+}
+
+#qtn img {
+	float: none !important;
+	margin-top: 10px;
+}
+
+#errorPage {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: #fff;
+	display: none;
+}
+
+#errorPage .errorImg {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 50%;
+	left: 0;
+	background: url(../images/deving.png) bottom center no-repeat;
+	background-size: 180px auto;
+}
+
+#errorPage .errorMessage {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+}
+
+#errorPage .errorMessage p {
+	font-size: 17px;
+	color: #666;
+	margin-top: 15px;
+	text-align: center;
+}

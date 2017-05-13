@@ -1,0 +1,181 @@
+body {
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	user-select:none;
+}
+
+.Qst {
+	padding: 5px 0 30px;
+}
+
+.Qst img {
+	max-width: 90%;
+}
+
+#qtn {
+	padding: 10px 15px 5px;
+	display: block;
+	margin-bottom: 18px;
+	color: #333;
+	font-size: 17px;
+	font-family: '微软雅黑';
+	line-height: 1.8;
+}
+
+#qtn img {
+	float: none !important;
+	margin-top: 10px;
+}
+
+.Qst .opt ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.Qst .opt ul li {
+	margin: 5px 0;
+	position: relative;
+	padding: 10px 10px 10px 60px;
+	font: 18px/30px '微软雅黑';
+	-webkit-user-select: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+/*.Qst .opt ul li:active {
+	background: #f5f5f5;
+}*/
+
+.Qst .opt ul li i {
+	position: absolute;
+	top: 50%;
+	left: 15px;
+	margin-top: -18px;
+	display: block;
+	width: 36px;
+	height: 36px;
+}
+
+.Qst .opt ul li i.answerA {
+	background: url(../images/noStateA.png) center center no-repeat;
+	background-size: 32px 32px;
+}
+
+.Qst .opt ul li i.answerB {
+	background: url(../images/noStateB.png) center center no-repeat;
+	background-size: 32px 32px;
+}
+
+.Qst .opt ul li i.answerC {
+	background: url(../images/noStateC.png) center center no-repeat;
+	background-size: 32px 32px;
+}
+
+.Qst .opt ul li i.answerD {
+	background: url(../images/noStateD.png) center center no-repeat;
+	background-size: 32px 32px;
+}
+
+.Qst .opt ul li i.answerE {
+	background: url(../images/noStateE.png) center center no-repeat;
+	background-size: 32px 32px;
+}
+
+.Qst .opt ul li[focus='']:after {
+	content: '';
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: rgba(0, 0, 0, .1);
+}
+
+.Qst .opt ul li[focus=''] i.answerA {
+	background: url(../images/focusA.png) center center no-repeat;
+	background-size: 32px 32px;
+}
+
+.Qst .opt ul li[focus=''] i.answerB {
+	background: url(../images/focusB.png) center center no-repeat;
+	background-size: 32px 32px;
+}
+
+.Qst .opt ul li[focus=''] i.answerC {
+	background: url(../images/focusC.png) center center no-repeat;
+	background-size: 32px 32px;
+}
+
+.Qst .opt ul li[focus=''] i.answerD {
+	background: url(../images/focusD.png) center center no-repeat;
+	background-size: 32px 32px;
+}
+
+.Qst .opt ul li[focus=''] i.answerE {
+	background: url(../images/focusE.png) center center no-repeat;
+	background-size: 32px 32px;
+}
+
+.loadImg {
+	width:0;
+	height:0;
+	overflow:hidden;
+}
+
+.loadImg .img1 {
+	background: url(../images/focusA.png) center center no-repeat;
+}
+
+.loadImg .img2 {
+	background: url(../images/focusB.png) center center no-repeat;
+}
+
+.loadImg .img3 {
+	background: url(../images/focusC.png) center center no-repeat;
+}
+
+.loadImg .img4 {
+	background: url(../images/focusD.png) center center no-repeat;
+}
+
+.loadImg .img5 {
+	background: url(../images/focusE.png) center center no-repeat;
+}
+
+/*缺省页样式*/
+#errorPage {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: #fff;
+	display: none;
+}
+
+#errorPage .errorImg {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 50%;
+	left: 0;
+	background: url(../images/deving.png) bottom center no-repeat;
+	background-size: 180px auto;
+}
+
+#errorPage .errorMessage {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+}
+
+#errorPage .errorMessage p {
+	font-size: 17px;
+	color: #666;
+	margin-top: 15px;
+	text-align: center;
+}

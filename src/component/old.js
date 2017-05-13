@@ -10,10 +10,15 @@ export default React.createClass({
         };
     },
 
+    getDefaultProps: function() {
+        return {
+            pageName: "firstPage"
+        };
+    },
+
     componentDidMount: function () {
         var listener = this.rnListener;
         window.document.addEventListener('message',function(e){
-//                document.getElementById("status") = "Get from RN: " + e.data;
             listener(e.data);
         });
     },
@@ -22,14 +27,9 @@ export default React.createClass({
     //     window.document.removeEventListener('message');
     // },
 
-    contextTypes: {
-        router: React.PropTypes.object
-    },
-
     // 处理从 RN 传过来的数据
     rnListener: function(msg) {
         var result = JSON.parse(msg);
-        //document.getElementById("status").innerHTML = "rnListener: " + msg;
 
         var pCmd = result.command;
         switch (pCmd){
@@ -79,8 +79,40 @@ export default React.createClass({
         this.postMessageToRN(pCmd,pData);
     },
 
+    // 路由設定
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+
+    // 切換到另一個頁面
     navToAnotherPage(event) {
-        const path = `/secondPage`;
+        var pageName = this.props.pageName;
+        var path = "";
+        switch (pageName){
+            case "page01":{
+                path = path + "/page02";
+                break;
+            }
+            case "page02":{
+                path = path +"/page03";
+                break;
+            }
+            case "page03":{
+                path = path +"/page04";
+                break;
+            }
+            case "page04":{
+                path = path +"/page05";
+                break;
+            }
+            case "page05":{
+                path =  "/";
+                break;
+            }
+            default:{
+                break;
+            }
+        }
         this.context.router.push(path);
     },
 
@@ -88,13 +120,11 @@ export default React.createClass({
         var value = this.state.value;
         return (
             <div>
-
-              <h1>First Page:</h1>
-              <p id="status" className="status" >{value}</p>
-              <input id="input" className="input" type="text" placeholder="Some..." ref="theInput"/>
-              <button className="button"  onClick={this.handleClick.bind(this, 'set')}>Send To RN</button>
-              <button className="button"  onClick={this.handleClick.bind(this, 'get')}>Get From RN</button>
-              <button className="button"  onClick={this.navToAnotherPage.bind(this)}>Nav To Another Page</button>
+                <p id="status" className="status" >{value}</p>
+                <input id="input" className="input" type="text" placeholder="Some..." ref="theInput"/>
+                <button className="button"  onClick={this.handleClick.bind(this, 'set')}>Send To RN</button>
+                <button className="button"  onClick={this.handleClick.bind(this, 'get')}>Get From RN</button>
+                <button className="button"  onClick={this.navToAnotherPage.bind(this)}>Nav To Next Page</button>
 
             </div>
         )
